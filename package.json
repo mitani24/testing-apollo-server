@@ -4,14 +4,16 @@
   "license": "MIT",
   "author": "mitani24 <h.mitani@ashita-team.com>",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "api": "json-server api/db.json",
     "codegen": "run-p codegen:*",
     "codegen:graphql": "graphql-codegen",
-    "codegen:openapi-types": "openapi-typescript ./petstore.yaml --output src/lib/generated/openapi-types.ts"
+    "codegen:openapi-types": "openapi-typescript ./trackapi.yaml --output src/lib/generated/openapi-types.ts",
+    "dev": "ts-node-dev --respawn src/index.ts"
   },
   "dependencies": {
     "apollo-server": "^3.6.2",
-    "graphql": "^16.3.0"
+    "graphql": "^16.3.0",
+    "json-server": "^0.17.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.4.0",

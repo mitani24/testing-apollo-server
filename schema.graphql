@@ -1,44 +1,34 @@
 type Query {
-  pet(id: ID!): Pet
+  tracks: [Track!]!
+  track(id: ID!): Track!
 }
 
 type Mutation {
-  createPet(input: CreatePetInput!): CreatePetPayload!
+  incrementTrackViews(
+    input: IncrementTrackViewsInput!
+  ): IncrementTrackViewsPayload
 }
 
-enum Status {
-  available
-  pending
-  sold
+type Track {
+  id: ID!
+  title: String!
+  author: Author!
+  thumbnail: String
+  length: Int
+  description: String
+  numberOfViews: Int
 }
 
-type Pet {
+type Author {
   id: ID!
   name: String!
-  category: Category
-  photoUrls: [String!]
-  tags: [Tag!]
-  status: Status
+  photo: String
 }
 
-type Category {
+input IncrementTrackViewsInput {
   id: ID!
-  name: String
 }
 
-type Tag {
-  id: ID!
-  name: String
-}
-
-input CreatePetInput {
-  name: String!
-  categoryId: ID
-  photoUrls: [String!]
-  tagIds: [ID!]
-  status: Status
-}
-
-type CreatePetPayload {
-  pet: Pet!
+type IncrementTrackViewsPayload {
+  track: Track
 }

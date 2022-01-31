@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Track API
+  version: "1.0"
+servers:
+  - url: "http://localhost:3000"
+paths:
+  /tracks:
+    get:
+      summary: トラック一覧を取得します
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Track"
+      operationId: getTracks
+    parameters: []
+  "/tracks/{trackId}":
+    parameters:
+      - $ref: "#/components/parameters/trackId"
+    get:
+      summary: トラックを取得します
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Track"
+      operationId: getTrack
+    patch:
+      summary: トラックを更新します
+      operationId: updateTrack
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Track"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Track"
+  "/authors/{authorId}":
+    parameters:
+      - $ref: "#/components/parameters/authorId"
+    get:
+      summary: 著者を取得します
+      tags: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Author"
+      operationId: getAuthor
+components:
+  schemas:
+    Track:
+      title: Track
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        title:
+          type: string
+        description:
+          type: string
+        authorId:
+          type: string
+        thumbnail:
+          type: string
+        length:
+          type: integer
+        numberOfViews:
+          type: integer
+      required:
+        - id
+    Author:
+      title: Author
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        photo:
+          type: string
+      required:
+        - id
+  parameters:
+    trackId:
+      name: trackId
+      in: path
+      schema:
+        type: string
+      required: true
+    authorId:
+      name: authorId
+      in: path
+      required: true
+      schema:
+        type: string
