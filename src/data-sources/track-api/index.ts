@@ -11,14 +11,20 @@ import {
   UpdateTrackResponse200,
 } from "./types";
 
+const formatQuery = (obj?: Record<string, any>) => {
+  if (!obj) return obj;
+  Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key]);
+  return obj;
+};
+
 export class TrackAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = "https://localhost:3000";
+    this.baseURL = "http://localhost:3000";
   }
 
   getTracks({ query }: { query?: GetTracksQuery }) {
-    return this.get<GetTracksResponse200>("/tracks", query);
+    return this.get<GetTracksResponse200>("/tracks", formatQuery(query));
   }
 
   getTrack({ path }: { path: GetTrackPath }) {
