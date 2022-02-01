@@ -1,11 +1,14 @@
 import { Config } from "apollo-server-express";
+import { TrackAPI } from "./track-api";
 
 export type ContextType = {
-  dataSources: {};
+  dataSources: {
+    trackAPI: TrackAPI;
+  };
 };
 
 export const dataSources: Config["dataSources"] = () => {
   return {
-    // petshopAPI: new PetshopAPI(),
+    trackAPI: new TrackAPI(),
   };
 };

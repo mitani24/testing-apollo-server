@@ -7,3 +7,6 @@ generates:
       - typescript-resolvers
     config:
       avoidOptionals: true
+      mappers:
+        Track: "../../data-sources/track-api/types#TrackResponse"
+        Author: "../../data-sources/track-api/types#AuthorResponse"

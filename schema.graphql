@@ -1,12 +1,10 @@
 type Query {
-  tracks: [Track!]!
+  tracks(authorId: String): [Track!]!
   track(id: ID!): Track!
 }
 
 type Mutation {
-  incrementTrackViews(
-    input: IncrementTrackViewsInput!
-  ): IncrementTrackViewsPayload
+  updateTrack(input: UpdateTrackInput!): UpdateTrackPayload
 }
 
 type Track {
@@ -25,10 +23,16 @@ type Author {
   photo: String
 }
 
-input IncrementTrackViewsInput {
+input UpdateTrackInput {
   id: ID!
+  title: String
+  authorId: String
+  thumbnail: String
+  length: Int
+  description: String
+  numberOfViews: Int
 }
 
-type IncrementTrackViewsPayload {
+type UpdateTrackPayload {
   track: Track
 }

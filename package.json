@@ -7,10 +7,11 @@
     "api": "json-server api/db.json",
     "codegen": "run-p codegen:*",
     "codegen:graphql": "graphql-codegen",
-    "codegen:openapi-types": "openapi-typescript ./trackapi.yaml --output src/lib/generated/openapi-types.ts",
+    "codegen:track-api-base-types": "openapi-typescript ./src/data-sources/track-api/openapi.yml --output src/lib/generated/track-api-base-types.ts",
     "dev": "ts-node-dev --respawn src/index.ts"
   },
   "dependencies": {
+    "apollo-datasource-rest": "^3.5.1",
     "apollo-server": "^3.6.2",
     "graphql": "^16.3.0",
     "json-server": "^0.17.0"

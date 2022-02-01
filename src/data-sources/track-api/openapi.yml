@@ -17,12 +17,17 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Track"
+                  $ref: "#/components/schemas/TrackResponse"
       operationId: getTracks
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: author_id
     parameters: []
-  "/tracks/{trackId}":
+  "/tracks/{track_id}":
     parameters:
-      - $ref: "#/components/parameters/trackId"
+      - $ref: "#/components/parameters/track_id"
     get:
       summary: トラックを取得します
       tags: []
@@ -32,7 +37,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Track"
+                $ref: "#/components/schemas/TrackResponse"
       operationId: getTrack
     patch:
       summary: トラックを更新します
@@ -43,15 +48,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Track"
+                $ref: "#/components/schemas/TrackResponse"
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/Track"
-  "/authors/{authorId}":
+        description: ""
+  "/authors/{author_id}":
     parameters:
-      - $ref: "#/components/parameters/authorId"
+      - $ref: "#/components/parameters/author_id"
     get:
       summary: 著者を取得します
       tags: []
@@ -61,7 +67,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Author"
+                $ref: "#/components/schemas/AuthorResponse"
       operationId: getAuthor
 components:
   schemas:
@@ -76,16 +82,29 @@ components:
           type: string
         description:
           type: string
-        authorId:
+        author_id:
           type: string
         thumbnail:
           type: string
         length:
           type: integer
-        numberOfViews:
+        number_of_views:
           type: integer
       required:
         - id
+    TrackResponse:
+      title: TrackResponse
+      allOf:
+        - $ref: "#/components/schemas/Track"
+        - type: object
+          properties:
+            title:
+              type: string
+            author_id:
+              type: string
+          required:
+            - title
+            - author_id
     Author:
       title: Author
       type: object
@@ -99,15 +118,24 @@ components:
           type: string
       required:
         - id
+    AuthorResponse:
+      allOf:
+        - $ref: "#/components/schemas/Author"
+        - type: object
+          properties:
+            name:
+              type: string
+          required:
+            - name
   parameters:
-    trackId:
-      name: trackId
+    track_id:
+      name: track_id
       in: path
+      required: true
       schema:
         type: string
-      required: true
-    authorId:
-      name: authorId
+    author_id:
+      name: author_id
       in: path
       required: true
       schema:
