@@ -8,5 +8,5 @@ generates:
     config:
       avoidOptionals: true
       mappers:
-        Track: "../../data-sources/track-api/types#TrackResponse"
-        Author: "../../data-sources/track-api/types#AuthorResponse"
+        Track: "../../data-sources/track-api/types#TrackRequired"
+        Author: "../../data-sources/track-api/types#AuthorRequired"

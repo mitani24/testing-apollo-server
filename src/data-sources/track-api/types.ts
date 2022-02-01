@@ -6,8 +6,8 @@ import {
 /**
  * Schemas
  */
-export type TrackResponse = components["schemas"]["TrackResponse"];
-export type AuthorResponse = components["schemas"]["AuthorResponse"];
+export type TrackRequired = components["schemas"]["TrackRequired"];
+export type AuthorRequired = components["schemas"]["AuthorRequired"];
 
 /**
  * Operations
