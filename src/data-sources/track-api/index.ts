@@ -42,6 +42,6 @@ export class TrackAPI extends RESTDataSource {
   }
 
   getAuthor({ path }: { path: GetAuthorPath }) {
-    return this.get<GetAuthorResponse200>(`authors/${path.author_id}`);
+    return this.get<GetAuthorResponse200>(`/authors/${path.author_id}`);
   }
 }
