@@ -8,7 +8,8 @@
     "codegen": "run-p codegen:*",
     "codegen:graphql": "graphql-codegen",
     "codegen:track-api-base-types": "openapi-typescript ./src/data-sources/track-api/openapi.yml --output src/lib/generated/track-api-base-types.ts",
-    "dev": "ts-node-dev --respawn src/index.ts"
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "test": "jest"
   },
   "dependencies": {
     "apollo-datasource-rest": "^3.5.1",
@@ -20,6 +21,8 @@
     "@graphql-codegen/cli": "^2.4.0",
     "@graphql-codegen/typescript": "^2.4.2",
     "@graphql-codegen/typescript-resolvers": "^2.4.3",
+    "@types/jest": "^27.4.0",
+    "jest": "^27.4.7",
     "npm-run-all": "^4.1.5",
     "openapi-typescript": "^5.1.1",
     "ts-node": "^10.4.0",
