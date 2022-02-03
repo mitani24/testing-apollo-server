@@ -1,4 +1,4 @@
-// import { RESTDataSource } from "apollo-datasource-rest";
+import { HTTPCache } from "apollo-datasource-rest";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import { server } from "../../src/server";
@@ -32,5 +32,17 @@ describe("tracks", () => {
   it("トラック一覧を取得できる", async () => {
     const res = await server.executeOperation({ query: Tracks });
     expect(res).toMatchSnapshot();
+  });
+
+  it("author_id でフィルタできる", async () => {
+    const fetch = jest.spyOn(HTTPCache.prototype, "fetch");
+    const res = await server.executeOperation({
+      query: Tracks,
+      variables: { authorId: "cat-1" },
+    });
+
+    expect(fetch).toHaveBeenCalledTimes(2);
+    const reqs = fetch.mock.calls.map(([req]) => req);
+    expect(new URL(reqs[0].url).search).toContain("author_id=cat-1");
   });
 });
