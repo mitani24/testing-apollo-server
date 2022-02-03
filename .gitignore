@@ -39,3 +39,4 @@ node_modules/
 # Project specific
 .build
 src/lib/generated
+tests/lib/generated

@@ -1,5 +1,7 @@
 overwrite: true
 schema: ./schema.graphql
+documents:
+  - ./tests/queries/**/*.graphql
 generates:
   ./src/lib/generated/graphql-resolver-types.ts:
     plugins:
@@ -10,3 +12,6 @@ generates:
       mappers:
         Track: "../../data-sources/track-api/types#TrackRequired"
         Author: "../../data-sources/track-api/types#AuthorRequired"
+  ./tests/lib/generated/graphql-documents.ts:
+    plugins:
+      - typescript-document-nodes
