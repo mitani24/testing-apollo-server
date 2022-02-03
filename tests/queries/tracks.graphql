@@ -1,12 +1,12 @@
-query tracks {
-  tracks {
-    id
-    title
+query tracks($authorId: String) {
+  tracks(authorId: $authorId) {
     author {
       id
       name
       photo
     }
+    id
+    title
     thumbnail
     length
     description

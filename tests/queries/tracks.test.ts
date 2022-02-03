@@ -1,25 +1,36 @@
-import { RESTDataSource } from "apollo-datasource-rest";
+// import { RESTDataSource } from "apollo-datasource-rest";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
 import { server } from "../../src/server";
 import { Tracks } from "../lib/generated/graphql-documents";
 
-describe("tracks", () => {
-  it("/tracks エンドポイントが呼ばれる", async () => {
-    const get = jest.spyOn(RESTDataSource.prototype, "get");
-    get.mockResolvedValueOnce([
-      {
-        id: "track-0",
-        title: "track-0:title",
-        author_id: "author-0",
-      },
-    ]);
-    get.mockResolvedValueOnce({
-      id: "author-0",
-      name: "author-0:name",
-    });
+const mockServer = setupServer(
+  rest.all("*", async (req, res, ctx) => {
+    const redirectUrl = new URL(req.url);
+    redirectUrl.protocol = "http";
+    redirectUrl.host = "localhost";
+    redirectUrl.port = "4010";
+    const redirectReq = { ...req, url: redirectUrl };
 
+    const data = await ctx.fetch(redirectReq);
+    const json = await data.json();
+
+    const headers: Record<string, string> = {};
+    for (const key of data.headers.keys()) {
+      headers[key] = data.headers.get(key);
+    }
+
+    return res(ctx.status(data.status), ctx.set(headers), ctx.json(json));
+  })
+);
+
+beforeAll(() => mockServer.listen({ onUnhandledRequest: "error" }));
+afterEach(() => mockServer.resetHandlers());
+afterAll(() => mockServer.close());
+
+describe("tracks", () => {
+  it("トラック一覧を取得できる", async () => {
     const res = await server.executeOperation({ query: Tracks });
-    expect(get.mock.calls.length).toBe(2);
-    expect(get.mock.calls[0][0]).toBe("/tracks");
-    expect(get.mock.calls[1][0]).toBe("/authors/author-0");
+    expect(res).toMatchSnapshot();
   });
 });
