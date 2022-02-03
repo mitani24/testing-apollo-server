@@ -1,0 +1,15 @@
+query track($trackId: ID!) {
+  track(id: $trackId) {
+    id
+    title
+    author {
+      id
+      photo
+      name
+    }
+    thumbnail
+    length
+    description
+    numberOfViews
+  }
+}

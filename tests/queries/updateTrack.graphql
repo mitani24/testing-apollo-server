@@ -1,0 +1,17 @@
+mutation updateTrack($input: UpdateTrackInput!) {
+  updateTrack(input: $input) {
+    track {
+      id
+      title
+      author {
+        photo
+        name
+        id
+      }
+      thumbnail
+      length
+      description
+      numberOfViews
+    }
+  }
+}

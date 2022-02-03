@@ -1,0 +1,15 @@
+query tracks {
+  tracks {
+    id
+    title
+    author {
+      id
+      name
+      photo
+    }
+    thumbnail
+    length
+    description
+    numberOfViews
+  }
+}
