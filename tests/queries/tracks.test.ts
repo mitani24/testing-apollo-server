@@ -24,18 +24,32 @@ const mockServer = setupServer(
   })
 );
 
+const fetch = jest.spyOn(HTTPCache.prototype, "fetch");
+
 beforeAll(() => mockServer.listen({ onUnhandledRequest: "error" }));
-afterEach(() => mockServer.resetHandlers());
+afterEach(() => {
+  mockServer.resetHandlers();
+  jest.clearAllMocks();
+});
 afterAll(() => mockServer.close());
 
 describe("tracks", () => {
   it("トラック一覧を取得できる", async () => {
     const res = await server.executeOperation({ query: Tracks });
+
     expect(res).toMatchSnapshot();
   });
 
+  it("/tracks エンドポイントを叩く", async () => {
+    const res = await server.executeOperation({ query: Tracks });
+
+    expect(fetch).toHaveBeenCalledTimes(2);
+    const reqs = fetch.mock.calls.map(([req]) => req);
+    const urls = reqs.map((req) => new URL(req.url));
+    expect(urls[0].pathname).toContain("/tracks");
+  });
+
   it("author_id でフィルタできる", async () => {
-    const fetch = jest.spyOn(HTTPCache.prototype, "fetch");
     const res = await server.executeOperation({
       query: Tracks,
       variables: { authorId: "cat-1" },
@@ -43,6 +57,7 @@ describe("tracks", () => {
 
     expect(fetch).toHaveBeenCalledTimes(2);
     const reqs = fetch.mock.calls.map(([req]) => req);
-    expect(new URL(reqs[0].url).search).toContain("author_id=cat-1");
+    const urls = reqs.map((req) => new URL(req.url));
+    expect(urls[0].search).toContain("author_id=cat-1");
   });
 });
