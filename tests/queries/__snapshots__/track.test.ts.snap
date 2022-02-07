@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`track トラックを取得できる 1`] = `
+Object {
+  "data": Object {
+    "track": Object {
+      "author": Object {
+        "id": "string",
+        "name": "string",
+        "photo": "string",
+      },
+      "description": "string",
+      "id": "string",
+      "length": 0,
+      "numberOfViews": 0,
+      "thumbnail": "string",
+      "title": "string",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
