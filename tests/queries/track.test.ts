@@ -29,9 +29,7 @@ describe("track", () => {
   });
 
   it("track_id 未指定だとエラーが返る", async () => {
-    const res = await server.executeOperation({
-      query: Track,
-    });
+    const res = await server.executeOperation({ query: Track });
 
     expect(res.errors).toHaveLength(1);
     expect(res.errors[0]).toBeInstanceOf(UserInputError);

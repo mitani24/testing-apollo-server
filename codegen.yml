@@ -15,3 +15,6 @@ generates:
   ./tests/lib/generated/graphql-documents.ts:
     plugins:
       - typescript-document-nodes
+  ./tests/lib/generated/graphql-types.ts:
+    plugins:
+      - typescript
