@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`track トラックを取得できる 1`] = `
+exports[`track トラックが返却される 1`] = `
 Object {
   "data": Object {
     "track": Object {

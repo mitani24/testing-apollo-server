@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tracks トラック一覧が返却される 1`] = `
+exports[`updateTrack トラックが返却される 1`] = `
 Object {
   "data": Object {
-    "tracks": Array [
-      Object {
+    "updateTrack": Object {
+      "track": Object {
         "author": Object {
           "id": "string",
           "name": "string",
@@ -17,7 +17,7 @@ Object {
         "thumbnail": "string",
         "title": "string",
       },
-    ],
+    },
   },
   "errors": undefined,
   "extensions": undefined,

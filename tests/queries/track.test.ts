@@ -6,7 +6,7 @@ import { Track } from "../lib/generated/graphql-documents";
 const fetch = jest.spyOn(HTTPCache.prototype, "fetch");
 
 describe("track", () => {
-  it("トラックを取得できる", async () => {
+  it("トラックが返却される", async () => {
     const res = await server.executeOperation({
       query: Track,
       variables: { trackId: "track-1" },
@@ -24,6 +24,7 @@ describe("track", () => {
     expect(fetch).toHaveBeenCalledTimes(2);
     const reqs = fetch.mock.calls.map(([req]) => req);
     const urls = reqs.map((req) => new URL(req.url));
+    expect(reqs[0].method).toBe("GET");
     expect(urls[0].pathname).toContain("/tracks/track-1");
   });
 
